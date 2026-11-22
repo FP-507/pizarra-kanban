@@ -65,3 +65,7 @@ app/    main.py (HTTP + WebSocket + sala de conexiones) · tablero.py (modelo y 
 web/    index.html · app.js · estilo.css
 tests/
 ```
+
+## Para retomar el proyecto
+
+Arquitectura, decisiones técnicas, cómo extenderlo y pendientes: [DESARROLLO.md](DESARROLLO.md).
