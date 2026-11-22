@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizarra · Kanban en tiempo real</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/estilo.css">
+</head>
+<body>
+  <header class="top">
+    <div class="marca">
+      <span class="logo" aria-hidden="true"></span>
+      <div>
+        <h1>Pizarra</h1>
+        <p class="slug" id="slug"></p>
+      </div>
+    </div>
+    <div class="acciones">
+      <span class="estado" id="estado" role="status"><i></i><span>Conectando…</span></span>
+      <ul class="personas" id="personas" aria-label="Personas conectadas"></ul>
+      <button type="button" class="btn" id="invitar">Copiar enlace</button>
+    </div>
+  </header>
+
+  <main class="tablero" id="tablero" aria-label="Tablero"></main>
+
+  <dialog id="dlg-nombre">
+    <form method="dialog" id="form-nombre">
+      <h2>¿Cómo te llamas?</h2>
+      <p>Tu nombre aparece para las demás personas del tablero.</p>
+      <input name="nombre" maxlength="30" required autocomplete="nickname" placeholder="Ej. Ana">
+      <button class="btn primario">Entrar al tablero</button>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-tarjeta">
+    <form method="dialog" id="form-tarjeta">
+      <h2 id="dlg-titulo">Editar tarjeta</h2>
+      <label>Título <input name="titulo" maxlength="120" required></label>
+      <label>Descripción <textarea name="descripcion" rows="4" maxlength="1000"></textarea></label>
+      <div class="fila">
+        <label>Etiqueta <select name="etiqueta"></select></label>
+        <label>Columna <select name="columna"></select></label>
+      </div>
+      <p class="meta" id="dlg-meta"></p>
+      <div class="fila botones">
+        <button type="button" class="btn peligro" id="borrar">Borrar</button>
+        <span></span>
+        <button type="button" class="btn" value="cancelar" id="cancelar">Cancelar</button>
+        <button class="btn primario" value="guardar">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="avisos" id="avisos" aria-live="polite"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
