@@ -4,6 +4,10 @@ Tablero Kanban donde varias personas trabajan al mismo tiempo: cada tarjeta que 
 
 ![tests](https://github.com/FP-507/pizarra-kanban/actions/workflows/tests.yml/badge.svg)
 
+![Dos personas en el mismo tablero: lo que crea o mueve una aparece al instante en la pantalla de la otra](media/demo.gif)
+
+*Dos ventanas conectadas al mismo tablero: Luis crea una tarjeta y Ana la ve al instante; cada movimiento llega a ambos por WebSocket.*
+
 ## Funciones
 
 - **Tiempo real**: los cambios se difunden por WebSocket a todos los conectados al mismo tablero, con avisos del tipo «Ana movió *Conectar API de pagos* a Revisión».
