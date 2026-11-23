@@ -119,3 +119,15 @@ def test_errores_solo_llegan_a_quien_los_causo(client):
         assert "desconocida" in recibir_hasta(ana, "error")["mensaje"]
         ana.send_json({"accion": "borrar", "id": 999})
         assert recibir_hasta(ana, "error")["mensaje"] == "La tarjeta no existe"
+
+
+def test_demo_siembra_solo_con_variable_y_tablero_vacio(monkeypatch):
+    engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
+    SQLModel.metadata.create_all(engine)
+    with Session(engine) as s:
+        monkeypatch.delenv("SEMBRAR_DEMO", raising=False)
+        assert T.sembrar_demo(s) == 0
+        monkeypatch.setenv("SEMBRAR_DEMO", "1")
+        assert T.sembrar_demo(s) == len(T.EJEMPLOS_DEMO)
+        assert T.sembrar_demo(s) == 0
+        assert {t.columna for t in T.tarjetas(s, "equipo-demo")} == set(T.COLUMNAS)

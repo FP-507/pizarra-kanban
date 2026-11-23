@@ -45,6 +45,13 @@ El campo `ref` lo genera el cliente y vuelve en la respuesta; sirve para saber q
 
 `tests/test_pizarra.py`: posiciones al crear, mover entre columnas y dentro de la misma, borrar cerrando huecos, aislamiento entre tableros, validaciones, slug inválido, y dos pruebas de WebSocket con **dos clientes a la vez** (difusión en vivo y presencia; errores que solo recibe el emisor). Usan `TestClient` con una base en memoria.
 
+## Despliegue (demo pública en Render)
+
+- `render.yaml` define el servicio (Docker, plan gratuito). En Render: **New > Blueprint**, elegir este repositorio y confirmar. Cada `push` a `main` vuelve a desplegar.
+- El `Dockerfile` escucha en `$PORT` (lo pone Render; en local, 8000) y corre como usuario sin privilegios.
+- `SEMBRAR_DEMO=1` carga datos de ejemplo al arrancar si la base está vacía (`sembrar_demo()` en `app/tablero.py`, tablero `equipo-demo`).
+- Plan gratuito: el servicio se duerme tras 15 minutos sin uso (el primer pedido tarda cerca de un minuto) y el disco no es persistente, así que la demo vuelve a los datos de ejemplo en cada reinicio. Para guardar datos de verdad haría falta un disco persistente o una base externa (cambiar `DATABASE_URL`).
+
 ## Cómo extenderlo
 
 - **Nueva acción** (por ejemplo, `archivar`): función en `tablero.py`, rama en `procesar()` que devuelva un evento con `tipo` nuevo, y un caso en `aplicar()` de `web/app.js`. Agregar un test de lógica y uno de WebSocket.

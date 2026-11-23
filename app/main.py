@@ -58,6 +58,8 @@ sala = Sala()
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     SQLModel.metadata.create_all(engine)
+    with Session(engine) as s:
+        T.sembrar_demo(s)
     yield
 
 

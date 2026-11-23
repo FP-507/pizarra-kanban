@@ -128,3 +128,27 @@ def borrar(s: Session, tablero: str, tarjeta_id: int) -> list[Tarjeta]:
         s.add(x)
     s.commit()
     return resto
+
+
+# --- Demo pública ---------------------------------------------------------------
+# Si SEMBRAR_DEMO vale "1" y el tablero "equipo-demo" está vacío, se llena con tarjetas de
+# ejemplo al arrancar. En Render (plan gratuito) el disco se borra al reiniciar, así que la
+# demo vuelve a este estado. Los tests no la activan.
+EJEMPLOS_DEMO = [
+    ("Diseñar la pantalla de inicio", "diseno", "por_hacer"),
+    ("Corregir el login en Safari", "bug", "por_hacer"),
+    ("Endpoint de reportes", "backend", "en_progreso"),
+    ("Modo oscuro", "frontend", "en_progreso"),
+    ("Revisar textos de la landing", "ninguna", "revision"),
+    ("Configurar CI", "backend", "hecho"),
+]
+
+
+def sembrar_demo(s: Session, tablero: str = "equipo-demo") -> int:
+    import os
+
+    if os.getenv("SEMBRAR_DEMO") != "1" or tarjetas(s, tablero):
+        return 0
+    for titulo, etiqueta, columna in EJEMPLOS_DEMO:
+        crear(s, tablero, DatosTarjeta(titulo=titulo, etiqueta=etiqueta, columna=columna), "Demo")
+    return len(EJEMPLOS_DEMO)
